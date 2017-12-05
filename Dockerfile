@@ -33,17 +33,22 @@ RUN apt-get update \
       libxrender1 \
       libxss1 \
       libxtst6 \
+      locales \
       ca-certificates \
       fonts-liberation \
       libappindicator1 \
       libnss3 \
       lsb-release \
       xdg-utils \
-      wget
+      wget \
+      fonts-vlgothic fonts-horai-umefont fonts-umeplus
+
+RUN locale-gen ja_JP.UTF-8
+ENV LANG ja_JP.UTF-8
+ENV LC_CTYPE ja_JP.UTF-8
+RUN localedef -f UTF-8 -i ja_JP ja_JP.utf8
 
 WORKDIR /app
 RUN npm i puppeteer
 
 COPY ./hctop.js .
-
-#ENTRYPOINT ["node", "/app/hctop.js"]
